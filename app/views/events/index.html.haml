@@ -1,0 +1,17 @@
+%h2 All Events
+
+%table#events
+  %thead
+    %tr 
+      %th Sport type
+      %th When
+      %th Home
+      %th Visiting
+  %tbody
+    - @events.each do |event|
+      %tr
+        %td= event.sport_type
+        %td= event.datetime.strftime("%B %-d, %H:%M")
+        %td= event.home
+        %td= event.visiting
+        %td= link_to "Details", event_path(event)

@@ -1,0 +1,33 @@
+%h2 Event details
+
+%ul#details
+  %li
+    Sport type:
+    = @event.sport_type
+  %li
+    When:
+    = @event.datetime.strftime("%B %-d, %H:%M")
+  %li
+    Home:
+    = @event.home
+  %li
+    Visiting:
+    = @event.visiting
+
+%h3 Bets
+  
+- @event.bets.each do |bet|
+  
+  %ul#bet
+    %li
+      Bookmaker:
+      = bet.bookmaker
+    %li
+      Home:
+      = bet.odds_home
+    %li
+      Visiting:
+      = bet.odds_visiting
+    %li
+      Draw:
+      = bet.odds_draw
