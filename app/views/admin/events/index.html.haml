@@ -1,6 +1,6 @@
-%h2= link_to "All Events", events_path
+%h2= link_to "All Events", admin_events_path
 
-= form_tag events_path, :method => :get do
+= form_tag admin_events_path, :method => :get do
 
   = label :event, :sport_type, "Sport type"
   = select :event, :sport_type, @sport_types
@@ -26,4 +26,4 @@
         %td= event.datetime.strftime("%B %-d, %H:%M")
         %td= event.home
         %td= event.visiting
-        %td= link_to "Details", event_path(event)
+        %td= link_to "Details", admin_event_path(event)

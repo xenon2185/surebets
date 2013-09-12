@@ -13,7 +13,10 @@ Surebets::Application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resources :events
+  namespace :admin do
+    root to: "dashboard#index"
+    resources :events
+  end
 
   # Example resource route with options:
   #   resources :products do

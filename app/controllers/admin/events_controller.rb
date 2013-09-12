@@ -1,4 +1,4 @@
-class EventsController < ApplicationController
+class Admin::EventsController < AdminController
   def index
     @events = Event.all
     @sport_types = Event.sport_types
