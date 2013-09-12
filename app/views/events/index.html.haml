@@ -1,12 +1,24 @@
-%h2 All Events
+%h2= link_to "All Events", events_path
 
-%table#events
+= form_tag events_path, :method => :get do
+
+  = label :event, :sport_type, "Sport type"
+  = select :event, :sport_type, @sport_types
+
+  = label :event, :datetime, "When"
+  = datetime_select :event, :datetime, 
+    start_year: 1.year.ago.year, end_year: 1.year.from_now.year
+
+  = submit_tag "Filter"
+
+%table#events.table.table-hover
   %thead
     %tr 
       %th Sport type
       %th When
       %th Home
       %th Visiting
+      %th Details
   %tbody
     - @events.each do |event|
       %tr
