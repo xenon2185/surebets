@@ -16,6 +16,9 @@ Surebets::Application.routes.draw do
   namespace :admin do
     root to: "dashboard#index"
     resources :events
+    
+    require 'sidekiq/web'
+    mount Sidekiq::Web => '/sidekiq'
   end
 
   # Example resource route with options:
@@ -57,4 +60,6 @@ Surebets::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+
 end
