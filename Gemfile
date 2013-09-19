@@ -52,6 +52,10 @@ group :development, :test do
   gem 'sqlite3'
   # Use debugger
   gem 'debugger', group: [:development, :test]
+
+  gem 'rspec-rails', '~> 2.0'
+  gem 'autotest-rails'
+  
 end
 
 group :production do

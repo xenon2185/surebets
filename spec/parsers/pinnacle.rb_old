@@ -1,0 +1,46 @@
+require 'parsers/pinnacle'
+
+describe Parser::Pinnacle do
+
+  describe '#initialize' do
+    it 'stores a URL' do
+      pinnacle = Parser::Pinnacle.new
+      expect(pinnacle.xml_url).to eq 'http://xml.pinnaclesports.com/pinnacleFeed.aspx'
+    end
+  end
+
+  describe '#parse' do
+
+    let(:xml) { File.open( File.join('spec', 'fixtures', 'pinnacle', '201309181522.xml') ) }
+    let(:pinnacle) { Parser::Pinnacle.new xml }
+
+    describe 'extract Soccer event' do
+
+      let(:events) { pinnacle.parse 'Soccer' }
+      let(:event) { events.first }
+
+      it 'it extracts sport type' do
+        expect(event[:sport_type]).to eq 'Soccer'
+      end
+      it 'it extracts datetime' do
+        expect(event[:datetime]).to eq '2013-09-18 15:14'
+      end
+      it 'it extracts home team/player' do
+        expect(event[:home]).to eq 'Lekhwiya Doha'
+      end
+      it 'it extracts visiting team/player' do
+        expect(event[:visiting]).to eq 'Guangzhou Evergrande'
+      end
+
+      describe 'extract bets' do
+
+        it 'extracts Moneline bets' do
+          expect(event[:bets][:moneyline][:home]).to eq 347
+        end
+      end
+
+    end
+
+  end
+
+end
