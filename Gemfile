@@ -39,13 +39,13 @@ gem 'unicorn'
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
-gem 'haml'
-gem 'nokogiri'
+gem "haml", "~> 4.0.3"
+gem "nokogiri", "~> 1.6.0"
 
-gem 'sidekiq'
+gem "sidekiq", "~> 2.14.1"
 gem 'sinatra', :require => false
 
-gem 'clockwork'
+gem "clockwork", "~> 0.6.0"
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
@@ -54,7 +54,7 @@ group :development, :test do
   gem 'debugger', group: [:development, :test]
 
   gem 'rspec-rails', '~> 2.0'
-  gem 'autotest-rails'
+  # gem 'autotest-rails'
   
 end
 

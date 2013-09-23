@@ -4,8 +4,8 @@ require 'clockwork'
 
 module Clockwork
 
-  # every 1.minute, 'pinnacle' do
-  #   PinnacleXmlWorker.perform_async
-  # end
+  every 5.minute, 'pinnacle' do
+    PinnacleWorker.perform_async
+  end
 
 end 

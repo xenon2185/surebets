@@ -8,21 +8,38 @@ module Parser
     def self.sport_types; @@sport_types; end
     def self.sport_types= st; @@sport_types = st; end
 
-    @@xml_url = 'http://xml.pinnaclesports.com/pinnacleFeed.aspx'
+    @@last = 1196336347638
+    def self.last; @@last; end
+
+    def self.create_url
+      url = 'http://xml.pinnaclesports.com/pinnacleFeed.aspx'
+      # url << "?" << sport_types_to_s(:url)
+      url << "?last=" << (@@last - 5000).to_s
+    end
 
     @@dom = nil
     def self.dom; @@dom; end
 
-    def self.create_dom path = @@xml_url
+    def self.create_dom path = create_url
       @@dom = Nokogiri::XML(open(path))
     end
 
-    def self.sport_types_to_s
+    def self.sport_types_to_s type
       sport_types= @@sport_types.clone
-      sport_types_string = "sporttype='#{sport_types.shift}'"
-      sport_types.each do |sport_type|
-        sport_types_string << " or sporttype='#{sport_type}'"
-      end
+      first = sport_types.shift
+      sport_types_string = ""
+      case type
+      when :xpath
+        sport_types_string << "sporttype='#{first}'"
+        sport_types.each do |sport_type|
+          sport_types_string << " or sporttype='#{sport_type}'"
+        end
+      when :url
+        sport_types_string = "sportType=#{first}"
+        sport_types.each do |sport_type|
+          sport_types_string << "&sportType=#{sport_type}"
+        end
+      end      
       sport_types_string
     end
 
@@ -44,8 +61,10 @@ module Parser
     end
 
     def self.parse
-      event_nodes = @@dom.xpath("//event[(#{sport_types_to_s})
-        and descendant::period_description='Game']  ")
+      @@last = @@dom.xpath("/pinnacle_line_feed/PinnacleFeedTime").text.to_i
+      event_nodes = @@dom.xpath("//event
+        [#{sport_types_to_s :xpath}]
+        [periods/period/moneyline]")
 
       create_events event_nodes
 

@@ -4,7 +4,8 @@ require 'parsers/pinnacle'
 describe Parser::Pinnacle do
 
   p = Parser::Pinnacle
-  p.create_dom File.join('spec','fixtures','pinnacle','201309181522.xml')
+  p.create_dom File.join('spec','fixtures','pinnacle','201309231021.xml')
+  # p.create_dom
 
   it 'set sport types' do
     sport_types = ['Soccer']
@@ -16,18 +17,28 @@ describe Parser::Pinnacle do
     expect(p.dom.name).to eq 'document'
   end
 
+  # it 'creates url' do
+  #   p.sport_types = ['Soccer', 'Tennis']
+  #   url = p.create_url
+  #   expect(url).to eq 'http://xml.pinnaclesports.com/pinnacleFeed.aspx?sportType=Soccer&sportType=Tennis&last=1379510424874'
+  # end
+
   describe '::parse' do
 
     p.parse
     event = Event.where(
       sport_type: 'Soccer',
-      datetime: Time.zone.parse('2013-09-18 15:14'),
-      home: 'Lekhwiya Doha',
-      visiting: 'Guangzhou Evergrande'
+      datetime: Time.zone.parse('2013-09-23 17:04'),
+      home: 'IFK Goteborg',
+      visiting: 'AIK Solna'
     )
 
+    it 'updates PinnacleFeedTime' do
+      expect(p.last).to eq 1379931647048
+    end
+
     it 'creates events' do
-      expect(Event.all.count).to eq 500
+      expect(Event.all.count).to eq 182
     end
 
     it 'creates event if not exists' do
@@ -36,14 +47,14 @@ describe Parser::Pinnacle do
     end
 
     it 'creates bets' do
-      expect(Bet.all.count).to eq 500
+      expect(Bet.all.count).to eq 182
     end
 
     it 'creates or updates bet' do
       bet = event.first.bets.where(
-        odds_home: 4.47,
-        odds_visiting: 1.847,
-        odds_draw: 3.85
+        odds_home: p.convert_odds(131, to: :decimal),
+        odds_visiting: p.convert_odds(224, to: :decimal),
+        odds_draw: p.convert_odds(247, to: :decimal)
       )
       expect(bet.count).to eq 1
     end
@@ -51,11 +62,19 @@ describe Parser::Pinnacle do
   end
 
   describe 'helpers' do
-    it 'creates sport_types string' do
-      p.sport_types = ['Soccer']
-      expect(p.sport_types_to_s).to eq "sporttype='Soccer'"
-      p.sport_types = ['Soccer', 'Tennis']
-      expect(p.sport_types_to_s).to eq "sporttype='Soccer' or sporttype='Tennis'"
+    describe '::sport_types_to_s' do
+      it 'creates xpath string' do
+        p.sport_types = ['Soccer']
+        expect(p.sport_types_to_s :xpath).to eq "sporttype='Soccer'"
+        p.sport_types = ['Soccer', 'Tennis']
+        expect(p.sport_types_to_s :xpath).to eq "sporttype='Soccer' or sporttype='Tennis'"
+      end
+      # it 'creates url string' do
+      #   p.sport_types = ['Soccer']
+      #   expect(p.sport_types_to_s :url).to eq "sportType=Soccer"
+      #   p.sport_types = ['Soccer', 'Tennis']
+      #   expect(p.sport_types_to_s :url).to eq "sportType=Soccer&sportType=Tennis"
+      # end
     end
     it 'converts odds' do
       expect(p.convert_odds -110, to: :decimal).to eq 1.909

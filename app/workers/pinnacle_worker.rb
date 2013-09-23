@@ -1,13 +1,13 @@
-require 'open-uri'
 require 'parsers/pinnacle'
 
-class PinnacleXmlWorker
+class PinnacleWorker
 
   include Sidekiq::Worker
   sidekiq_options queue: :pinnacle, retry: false
 
   def perform
-    Parser::Pinnacle.wait
+    Parser::Pinnacle.create_dom
+    Parser::Pinnacle.parse
   end
 
 end
