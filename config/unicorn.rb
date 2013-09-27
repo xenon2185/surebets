@@ -11,7 +11,7 @@ timeout 30
 preload_app true
 
 before_fork do |server, worker|
-   @sidekiq_pid ||= spawn("bundle exec sidekiq -c 2 -q pinnacle,1")
+   @sidekiq_pid ||= spawn("bundle exec sidekiq -c 2 -q pinnacle -q bet-at-home")
    @clockwork_pid ||= spawn("bundle exec clockwork lib/clock.rb")
 end
 

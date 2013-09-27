@@ -51,13 +51,19 @@ group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
   # Use debugger
-  gem 'debugger', group: [:development, :test]
+  gem 'debugger'
+
+  gem "guard", "~> 1.8.3"
+  gem "guard-rspec", "~> 3.1.0"
 
   gem 'rspec-rails', '~> 2.0'
-  # gem 'autotest-rails'
-  
+  gem "shoulda-matchers", "~> 2.4.0"
+    
 end
 
 group :production do
   gem 'pg'
+  # Include 'rails_12factor' gem to enable all platform features
+  # See https://devcenter.heroku.com/articles/rails-integration-gems for more information.
+  gem 'rails_12factor'
 end
