@@ -1,0 +1,60 @@
+<events>
+<event>
+	<event_datetimeGMT>2013-09-23 17:04</event_datetimeGMT>
+	<gamenumber>320650215</gamenumber>
+	<sporttype>Soccer</sporttype>
+	<league>Allsvenskan</league>
+	<IsLive>No</IsLive>
+	<participants>
+		<participant>
+			<participant_name>IFK Goteborg</participant_name>
+			<contestantnum>5175</contestantnum>
+			<rotnum>5175</rotnum>
+			<visiting_home_draw>Home</visiting_home_draw>
+		</participant>
+		<participant>
+			<participant_name>AIK Solna</participant_name>
+			<contestantnum>5176</contestantnum>
+			<rotnum>5176</rotnum>
+			<visiting_home_draw>Visiting</visiting_home_draw>
+		</participant>
+		<participant>
+			<participant_name>Draw</participant_name>
+			<contestantnum>5177</contestantnum>
+			<rotnum>5177</rotnum>
+			<visiting_home_draw>Draw</visiting_home_draw>
+		</participant>
+	</participants>
+	<periods>
+		<period>
+			<period_number>0</period_number>
+			<period_description>Game</period_description>
+			<periodcutoff_datetimeGMT>2013-09-23 17:04</periodcutoff_datetimeGMT>
+			<period_status>I</period_status>
+			<period_update>open</period_update>
+			<spread_maximum>3000</spread_maximum>
+			<moneyline_maximum>1500</moneyline_maximum>
+			<total_maximum>2000</total_maximum>
+			<moneyline>
+				<moneyline_visiting>224</moneyline_visiting>
+				<moneyline_home>131</moneyline_home>
+				<moneyline_draw>247</moneyline_draw>
+			</moneyline>
+			<spread>
+				<spread_visiting>0.25</spread_visiting>
+				<spread_adjust_visiting>-109</spread_adjust_visiting>
+				<spread_home>-0.25</spread_home>
+				<spread_adjust_home>100</spread_adjust_home>
+			</spread>
+			<total>
+				<total_points>2.5</total_points>
+				<over_adjust>-106</over_adjust>
+				<under_adjust>-104</under_adjust>
+			</total>
+		</period>
+	</periods>
+</event>
+
+
+
+</events>

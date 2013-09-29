@@ -2,12 +2,10 @@ module Factory
 
   class << self
 
-    def pinnacle_xml_feed
-      File.read File.join('spec','fixtures','pinnacle','201309231021.xml')
-    end
-
-    def bet_at_home_xml_feed
-      File.read File.join('spec','fixtures','bet_at_home','201309231021.xml')
+    def xml_feed bookmaker, options={extracted: false}
+      bookmaker = bookmaker.to_s.downcase.gsub('-','_')
+      suffix = options[:extracted] ? '_extracted.xml' : '.xml'
+      File.read File.join('spec','fixtures',bookmaker,"201309231021#{suffix}")
     end
 
   end

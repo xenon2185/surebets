@@ -23,11 +23,18 @@ class Event < ActiveRecord::Base
 
   scope :sport_types, lambda { distinct.pluck :sport_type }
 
-  def self.refresh bookmaker
+  def self.fetch bookmaker
+    bookmaker = bookmaker.to_s.titleize.gsub(' ','')
     parser = ('Parser::' + bookmaker).constantize
-    events = parser.fetch
-    if bookmaker == 'Pinnacle'
-      create_events events
+    events = parser.fetch 
+  end
+
+  def self.refresh events
+    unless events.empty?
+      bookmaker = events.first[:bets][:moneyline][:bookmaker]
+      if bookmaker == 'Pinnacle'
+        create_events events
+      end
     end
   end
 

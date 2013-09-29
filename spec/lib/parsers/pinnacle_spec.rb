@@ -5,7 +5,7 @@ require_relative '../../support/match_date'
 describe Parser::Pinnacle do
 
   p = Parser::Pinnacle
-  let(:xml) { Factory.pinnacle_xml_feed }
+  let(:xml) { Factory.xml_feed 'Pinnacle' }
 
   it "updates PinnacleFeedTime" do
     expect(p.update_pinnacle_feed_time(Nokogiri::XML(xml))).to eq 1379931647048

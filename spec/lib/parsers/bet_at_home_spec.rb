@@ -5,7 +5,7 @@ require_relative '../../support/match_date'
 describe Parser::BetAtHome do
   
   p = Parser::BetAtHome
-  let(:xml) { Factory.bet_at_home_xml_feed }
+  let(:xml) { Factory.xml_feed 'Bet-at-home' }
 
   describe '::parse' do
 
