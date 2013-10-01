@@ -15,25 +15,25 @@
 # b = e.bets.build(bet)
 # b.save!
 
-f = File.open('temp/pinnacle.xml')
-doc = Nokogiri.XML(f)
-f.close
+# f = File.open('temp/pinnacle.xml')
+# doc = Nokogiri.XML(f)
+# f.close
 
-events = doc.xpath("//event[sporttype='Soccer' and descendant::moneyline_home]")
+# events = doc.xpath("//event[sporttype='Soccer' and descendant::moneyline_home]")
 
-events.each do |event_node|
-  event = Event.new
-  event.sport_type = event_node.xpath('sporttype').text
-  event.datetime = event_node.xpath('event_datetimeGMT').text
-  event.home = event_node.xpath('descendant::participant[visiting_home_draw="Home"]/participant_name').text
-  event.visiting = event_node.xpath('descendant::participant[visiting_home_draw="Visiting"]/participant_name').text
-  event.save!
+# events.each do |event_node|
+#   event = Event.new
+#   event.sport_type = event_node.xpath('sporttype').text
+#   event.datetime = event_node.xpath('event_datetimeGMT').text
+#   event.home = event_node.xpath('descendant::participant[visiting_home_draw="Home"]/participant_name').text
+#   event.visiting = event_node.xpath('descendant::participant[visiting_home_draw="Visiting"]/participant_name').text
+#   event.save!
 
-  bet_node = event_node.xpath('descendant::period[period_description="Game"]/moneyline')
-  bet = Bet.new
-  bet.bookmaker = 'Pinnacle'
-  bet.odds_home = bet_node.xpath('moneyline_home').text.to_i
-  bet.odds_visiting = bet_node.xpath('moneyline_visiting').text.to_i
-  bet.odds_draw = bet_node.xpath('moneyline_draw').text.to_i
-  event.bets << bet
-end
+#   bet_node = event_node.xpath('descendant::period[period_description="Game"]/moneyline')
+#   bet = Bet.new
+#   bet.bookmaker = 'Pinnacle'
+#   bet.odds_home = bet_node.xpath('moneyline_home').text.to_i
+#   bet.odds_visiting = bet_node.xpath('moneyline_visiting').text.to_i
+#   bet.odds_draw = bet_node.xpath('moneyline_draw').text.to_i
+#   event.bets << bet
+# end

@@ -1,6 +1,7 @@
-require 'parsers/bet_at_home'
-require_relative '../../support/factory'
-require_relative '../../support/match_date'
+# require 'parsers/bet_at_home'
+# require_relative '../../support/factory'
+# require_relative '../../support/match_date'
+require 'spec_helper'
 
 describe Parser::BetAtHome do
   
@@ -80,19 +81,29 @@ describe Parser::BetAtHome do
 
     end
 
-    context "bad XML" do
+    # context "bad XML" do
 
-      before :each do
-        p.stub(:get).and_return("Bad XML")
-      end
+    #   before :each do
+    #     p.stub(:get).and_return("Bad XML")
+    #   end
 
-      it "raise error from Nokogiri" do
+    #   it "raise error from Nokogiri" do
+    #     expect {
+    #       events.length
+    #     }.to raise_error(Nokogiri::XML::SyntaxError)
+    #   end
+
+    # end
+
+    context "Not waited 60s interval" do
+
+      it "raise not waited error" do
         expect {
-          events.length
-        }.to raise_error(Nokogiri::XML::SyntaxError)
+          p.fetch;p.fetch
+        }.to raise_error(NoWaitError, /\d\d?/)
       end
 
-    end    
+    end  
 
   end
 

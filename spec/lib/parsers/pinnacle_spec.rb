@@ -1,6 +1,7 @@
-require 'parsers/pinnacle'
-require_relative '../../support/factory'
-require_relative '../../support/match_date'
+# require 'parsers/pinnacle'
+# require_relative '../../support/factory'
+# require_relative '../../support/match_date'
+require 'spec_helper'
 
 describe Parser::Pinnacle do
 
@@ -82,7 +83,7 @@ describe Parser::Pinnacle do
       end
 
       it 'build events objects' do
-        expect(events.count).to eq 186
+        expect(events.count).to eq 176
       end
 
     end

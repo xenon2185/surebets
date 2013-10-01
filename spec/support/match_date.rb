@@ -1,6 +1,7 @@
 RSpec::Matchers.define :match_date do |expected_string|
   match do |actual|
-    format_date(actual) == expected_string
+    format_date(actual) == expected_string &&
+    actual.zone == "UTC"
   end
 
   failure_message_for_should do |actual|
@@ -17,6 +18,6 @@ RSpec::Matchers.define :match_date do |expected_string|
 
   def format_date date
     # "#{date.year}-#{date.month}-#{date.day}"
-    "%d-%02d-%02d %02d:%02d" % [date.year, date.month, date.day, date.hour, date.minute]
+    "%d-%02d-%02d %02d:%02d" % [date.year, date.month, date.day, date.hour, date.min]
   end
 end

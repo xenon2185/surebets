@@ -3,11 +3,11 @@ require 'parsers/pinnacle'
 class PinnacleWorker
 
   include Sidekiq::Worker
-  sidekiq_options queue: :pinnacle, retry: false
+  # sidekiq_options queue: :pinnacle, retry: false
+  sidekiq_options retry: false
 
   def perform
-    Parser::Pinnacle.create_dom
-    Parser::Pinnacle.parse
+    Event.refresh Event.fetch 'Pinnacle'
   end
 
 end

@@ -2,7 +2,7 @@ RSpec::Matchers.define :have_bet_from do |expected_string|
   match do |actual|
     raise "No events" if actual.empty?
     actual.each do |event|
-      bet_count = event.bets.where(:bookmaker == expected_string).count
+      bet_count = event.bets.where(bookmaker: expected_string).count
       case 
       when bet_count > 1
         raise "Multiple bets from #{expected_string} for event\n

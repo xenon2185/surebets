@@ -23,26 +23,27 @@ describe Event do
 
   end
 
+  let(:pinnacle_events) { Event.fetch :pinnacle }
+
   describe 'refresh events and bets' do
 
-    let(:pinnacle_events) { Event.fetch :pinnacle }
     let(:bet_at_home_events) { Event.fetch :'bet-at-home' }
 
     before :each do
       stub_pinnacle_xml
-      stub_bet_at_home_xml        
+      stub_bet_at_home_xml    
     end
 
     it 'populates events ONLY from Pinnacle' do
       Event.refresh pinnacle_events
       Event.refresh bet_at_home_events
-      expect(Event.all.count).to eq 1
+      expect(Event.all.count).to eq 2
     end 
 
     describe 'Pinnacle' do
 
       it 'fetches events (with bets)' do
-        expect(pinnacle_events.count).to eq 1
+        expect(pinnacle_events.count).to eq 2
       end
 
       it 'populates bets from Pinnacle' do
@@ -56,15 +57,40 @@ describe Event do
     describe 'Bet-at-home' do
 
       it 'fetches events (with bets)' do
-        expect(bet_at_home_events.count).to eq 1
+        expect(bet_at_home_events.count).to eq 2
       end
 
-      # it 'populates bets from Pinnacle' do
-      #   Event.refresh bet_at_home_events
-      #   expect(Bet.where(bookmaker: 'Pinnacle').count).to eq 1
-      # end
+      it 'populates bets from Bet-at-home' do
+        Event.refresh pinnacle_events
+        Event.refresh bet_at_home_events
+        expect(Event.all).to have_bet_from 'Bet-at-home'
+      end
 
+    end
 
+  end
+
+  describe 'fuzzy search' do
+
+    before :each do
+      stub_pinnacle_xml
+      Event.refresh pinnacle_events  
+    end
+
+    it 'searches home field' do
+      expect(Event.find_by_fuzzy_home('goteborg',limit:1).first
+        ).not_to eq nil
+      expect(Event.find_by_fuzzy_home('sousa',limit:1).first
+        ).not_to eq nil
+      expect(Event.find_by_fuzzy_home('harrisson',limit:1).first
+        ).to eq nil
+    end
+
+    it 'searches visiting field' do
+      expect(Event.find_by_fuzzy_visiting('solna',limit:1).first
+        ).not_to eq nil
+      expect(Event.find_by_fuzzy_visiting('harrisson',limit:1).first
+        ).not_to eq nil
     end
 
   end

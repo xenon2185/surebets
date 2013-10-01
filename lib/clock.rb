@@ -4,12 +4,16 @@ require 'clockwork'
 
 module Clockwork
 
-  # every 5.minute, 'pinnacle' do
+  # every 1.minute, 'pinnacle'do
   #   PinnacleWorker.perform_async
   # end
 
-  # every 5.minute, 'bet-at-home' do
+  # every 1.minute, 'bet-at-home' do
   #   BetAtHomeWorker.perform_async
   # end
+
+  every 1.hour 'purge-events' do
+    PurgeEventsWorker.perform_async
+  end
 
 end 

@@ -1,6 +1,8 @@
 require 'open-uri'
 require 'parsers/parser'
 
+class NoWaitError < StandardError; end
+
 module Parser
 
   class BetAtHome < Parser
@@ -14,7 +16,14 @@ module Parser
     end
 
     def self.parse xml
-      doc = Nokogiri::XML(xml) { |config| config.strict }
+
+      if xml.length < 200 && xml.read.include?("Please use a minimum interval of 60 sec")
+        xml.rewind
+        xml.read =~ /please wait for (\d\d?)/
+        raise NoWaitError, $1
+      end
+
+      doc = Nokogiri::XML(xml) #{ |config| config.strict }
 
       # When using various bet types:
       # first find unique events ie. [not(preceding::MatchId = MatchId)]
@@ -34,7 +43,7 @@ module Parser
         event[:sport_type] = sport_type
 
         datetime = event_node.xpath('Date').text
-        event[:datetime] = DateTime.parse datetime
+        event[:datetime] = Time.zone.parse datetime
 
         event[:home] = event_node.xpath('OddsData/HomeTeam').text
         event[:visiting] = event_node.xpath('OddsData/AwayTeam').text
@@ -47,7 +56,8 @@ module Parser
         moneyline[:bookmaker] = 'Bet-at-home'
         moneyline[:odds_home] = moneyline_node.xpath('HomeOdds').text.to_f
         moneyline[:odds_visiting] = moneyline_node.xpath('AwayOdds').text.to_f
-        moneyline[:odds_draw] = moneyline_node.xpath('DrawOdds').text.to_f
+        odds_draw = moneyline_node.xpath('DrawOdds').text
+        moneyline[:odds_draw] = (odds_draw == '') ? nil : odds_draw.to_f
 
         event
 

@@ -3,11 +3,11 @@ require 'parsers/bet_at_home'
 class BetAtHomeWorker
 
   include Sidekiq::Worker
-  sidekiq_options queue: :'bet-at-home', retry: false
+  # sidekiq_options queue: :'bet-at-home', retry: false
+  sidekiq_options retry: false
 
   def perform
-    Parser::BetAtHome.create_dom
-    Parser::BetAtHome.parse
+    Event.refresh Event.fetch "Bet-at-home"
   end
 
 end

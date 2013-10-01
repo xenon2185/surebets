@@ -1,5 +1,7 @@
 class Admin::DashboardController < AdminController
   def index
-    BetAtHomeWorker.perform_async
+    # Event.refresh Event.fetch 'Pinnacle'
+    # Event.refresh Event.fetch 'Bet-at-home'
+    # PurgeEventsWorker.perform_async
   end
 end

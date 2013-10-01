@@ -29,7 +29,10 @@ module Parser
 
       event_nodes = doc.xpath("//event
         [#{sport_types_to_s 'sporttype'}]
-        [periods/period/moneyline]")
+        [periods/period[period_description='Game']/moneyline or
+        periods/period[period_description='Match']/moneyline]
+        [not(contains(descendant::participant_name[1], ' Sets)'))]
+        ")
 
       event_nodes.map do |event_node|
 
@@ -37,21 +40,21 @@ module Parser
 
         event[:sport_type] = event_node.xpath('sporttype').text
         datetime = event_node.xpath('event_datetimeGMT').text
-        event[:datetime] = DateTime.parse datetime
+        event[:datetime] = Time.zone.parse datetime
         event[:home] = event_node.xpath('descendant::participant[visiting_home_draw="Home"]/participant_name').text
         event[:visiting] = event_node.xpath('descendant::participant[visiting_home_draw="Visiting"]/participant_name').text
 
         event[:bets] = {}
         event[:bets][:moneyline] = {}
-        moneyline_node = event_node.xpath("descendant::period[period_description='Game']/moneyline")
+        moneyline_node = event_node.xpath("periods/period/moneyline")
         moneyline = event[:bets][:moneyline]
         moneyline[:bookmaker] = 'Pinnacle'
         odds_home = moneyline_node.xpath('moneyline_home').text.to_i
         moneyline[:odds_home] = convert_odds(odds_home)
         odds_visiting = moneyline_node.xpath('moneyline_visiting').text.to_i
         moneyline[:odds_visiting] = convert_odds(odds_visiting)
-        odds_draw = moneyline_node.xpath('moneyline_draw').text.to_i
-        moneyline[:odds_draw] = convert_odds(odds_draw)
+        odds_draw = moneyline_node.xpath('moneyline_draw').text
+        moneyline[:odds_draw] = (odds_draw == '') ? nil : convert_odds(odds_draw.to_i)
 
         event
       end

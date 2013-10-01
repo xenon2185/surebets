@@ -1,4 +1,7 @@
 <OddsObjects>
+<!-- ###################################### -->
+<!-- Soccer -->
+<!-- ###################################### -->
 <OddsObject>
 	<Sport id="1">Football</Sport>
 	<Category id="298">Sweden</Category>
@@ -13,6 +16,25 @@
 		<HomeOdds oddId="1167484_7284600_1" linkId="7284600_1">2.20</HomeOdds>
 		<DrawOdds oddId="1167484_7284600_0" linkId="7284600_0">3.30</DrawOdds>
 		<AwayOdds oddId="1167484_7284600_2" linkId="7284600_2">2.90</AwayOdds>
+	</OddsData>
+</OddsObject>
+
+<!-- ###################################### -->
+<!-- Tennis -->
+<!-- ###################################### -->
+<OddsObject>
+	<Sport id="2">Tennis</Sport>
+	<Category id="168">ATP</Category>
+	<Tournament id="3593">Kuala Lumpur</Tournament>
+	<MatchId>1173025</MatchId>
+	<Date>2013-09-24T04:00:00</Date>
+	<AC>1</AC>
+	<OddsType betTypeId="200" oddType="2" betTypeGroup="1" defaultName="Tip" groupName="Tip" betName="Tip">2W</OddsType>
+	<OddsData>
+		<HomeTeam>Harrison R.</HomeTeam>
+		<AwayTeam>Sousa J.</AwayTeam>
+		<HomeOdds oddId="1173025_7351780_1" linkId="7351780_1">1.65</HomeOdds>
+		<AwayOdds oddId="1173025_7351780_2" linkId="7351780_2">2.00</AwayOdds>
 	</OddsData>
 </OddsObject>
 

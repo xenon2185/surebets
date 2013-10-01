@@ -28,6 +28,7 @@
     %li
       Visiting:
       = bet.odds_visiting
-    %li
-      Draw:
-      = bet.odds_draw
+    - if bet.odds_draw
+      %li 
+        Draw:
+        = bet.odds_draw

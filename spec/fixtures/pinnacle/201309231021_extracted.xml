@@ -1,4 +1,7 @@
 <events>
+<!-- ###################################### -->
+<!-- Soccer -->
+<!-- ###################################### -->
 <event>
 	<event_datetimeGMT>2013-09-23 17:04</event_datetimeGMT>
 	<gamenumber>320650215</gamenumber>
@@ -51,6 +54,47 @@
 				<over_adjust>-106</over_adjust>
 				<under_adjust>-104</under_adjust>
 			</total>
+		</period>
+	</periods>
+</event>
+
+<!-- ###################################### -->
+<!-- Tennis -->
+<!-- ###################################### -->
+<event>
+	<event_datetimeGMT>2013-09-24 09:00</event_datetimeGMT>
+	<gamenumber>324126849</gamenumber>
+	<sporttype>Tennis</sporttype>
+	<league>Malaysia R1</league>
+	<IsLive>No</IsLive>
+	<participants>
+		<participant>
+			<participant_name>R. Harrison</participant_name>
+			<contestantnum>8205</contestantnum>
+			<rotnum>8205</rotnum>
+			<visiting_home_draw>Visiting</visiting_home_draw>
+		</participant>
+		<participant>
+			<participant_name>J. Sousa</participant_name>
+			<contestantnum>8206</contestantnum>
+			<rotnum>8206</rotnum>
+			<visiting_home_draw>Home</visiting_home_draw>
+		</participant>
+	</participants>
+	<periods>
+		<period>
+			<period_number>0</period_number>
+			<period_description>Match</period_description>
+			<periodcutoff_datetimeGMT>2013-09-24 09:00</periodcutoff_datetimeGMT>
+			<period_status>I</period_status>
+			<period_update>open</period_update>
+			<spread_maximum>250</spread_maximum>
+			<moneyline_maximum>1000</moneyline_maximum>
+			<total_maximum>250</total_maximum>
+			<moneyline>
+				<moneyline_visiting>-152</moneyline_visiting>
+				<moneyline_home>135</moneyline_home>
+			</moneyline>
 		</period>
 	</periods>
 </event>
