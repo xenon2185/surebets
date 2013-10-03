@@ -5,7 +5,7 @@ class PurgeEventsWorker
 
   def perform
     Event.find_each do |event|
-      if event.datetime < Time.zone.now + 24.hours
+      if event.datetime < Time.zone.now - 2.hours
         event.destroy
         puts "Event #{event.id} destroyed"
       end

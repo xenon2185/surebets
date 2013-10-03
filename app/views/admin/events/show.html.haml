@@ -14,21 +14,41 @@
     Visiting:
     = @event.visiting
 
-%h3 Bets
-  
-- @event.bets.each do |bet|
-  
-  %ul#bet
-    %li
-      Bookmaker:
-      = bet.bookmaker
-    %li
-      Home:
-      = bet.odds_home
-    %li
-      Visiting:
-      = bet.odds_visiting
-    - if bet.odds_draw
-      %li 
-        Draw:
-        = bet.odds_draw
+- if @event.bets.exists?
+  %h3 Bets
+    
+  - @event.bets.each do |bet|
+    
+    %ul.bet
+      %li
+        Bookmaker:
+        = bet.bookmaker
+      %li
+        Home:
+        = bet.odds_home
+      - if bet.odds_draw
+        %li 
+          Draw:
+          = bet.odds_draw
+      %li
+        Visiting:
+        = bet.odds_visiting
+      
+
+  -if @event.surebets.exists?
+    %h3 Surebets
+
+    - @event.surebets.each do |surebet|
+      %ul.surebet
+        %li
+          - bet_with_odds_home = Bet.find(surebet.bet_with_odds_home_id)
+          = "#{bet_with_odds_home.bookmaker} : #{surebet.event.home} (home)"
+        - if surebet.bet_with_odds_draw_id
+          %li
+            - bet_with_odds_draw = Bet.find(surebet.bet_with_odds_draw_id)
+            = "#{bet_with_odds_draw.bookmaker} : Draw"
+        %li
+          - bet_with_odds_visiting = Bet.find(surebet.bet_with_odds_visiting_id)
+          = "#{bet_with_odds_visiting.bookmaker} : #{surebet.event.visiting} (visiting)"
+        %li
+          = "Profit : #{surebet.profit.round 3} %"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130929082923) do
+ActiveRecord::Schema.define(version: 20131001125453) do
 
   create_table "bets", force: true do |t|
     t.string  "bookmaker"
@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(version: 20130929082923) do
     t.string   "home"
     t.string   "visiting"
   end
+
+  create_table "surebets", force: true do |t|
+    t.integer "bet_with_odds_home_id"
+    t.integer "bet_with_odds_visiting_id"
+    t.integer "bet_with_odds_draw_id"
+    t.decimal "profit"
+    t.integer "event_id"
+  end
+
+  add_index "surebets", ["event_id"], name: "index_surebets_on_event_id"
 
   create_table "trigrams", force: true do |t|
     t.string  "trigram",     limit: 3

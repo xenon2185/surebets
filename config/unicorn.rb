@@ -15,7 +15,6 @@ before_fork do |server, worker|
    @clockwork_pid ||= spawn("bundle exec clockwork lib/clock.rb")
    @rake_parsers_pid ||= spawn("bundle exec rake parsers")
 end
-
 after_fork do |server, worker|
   Sidekiq.configure_client do |config|
     config.redis = { :size => 1 }

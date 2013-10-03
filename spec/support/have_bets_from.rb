@@ -8,7 +8,7 @@ RSpec::Matchers.define :have_bet_from do |expected_string|
         raise "Multiple bets from #{expected_string} for event\n
               #{event.datetime} #{event.home} #{event.visiting}"
       when bet_count == 0
-        return false
+        raise "No bets from #{expected_string} for event #{event.home} - #{event.visiting}"
       end
     end
     true

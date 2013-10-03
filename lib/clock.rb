@@ -12,7 +12,7 @@ module Clockwork
   #   BetAtHomeWorker.perform_async
   # end
 
-  every 1.hour 'purge-events' do
+  every 1.hour, 'purge-events' do
     PurgeEventsWorker.perform_async
   end
 

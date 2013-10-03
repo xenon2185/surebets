@@ -39,9 +39,12 @@
 			<moneyline_maximum>1500</moneyline_maximum>
 			<total_maximum>2000</total_maximum>
 			<moneyline>
-				<moneyline_visiting>224</moneyline_visiting>
-				<moneyline_home>131</moneyline_home>
-				<moneyline_draw>247</moneyline_draw>
+				<moneyline_visiting>-125</moneyline_visiting>
+				<!-- <moneyline_visiting>224</moneyline_visiting> -->
+				<moneyline_home>320</moneyline_home>
+				<!-- <moneyline_home>131</moneyline_home> -->
+				<moneyline_draw>280</moneyline_draw>
+				<!-- <moneyline_draw>247</moneyline_draw> -->
 			</moneyline>
 			<spread>
 				<spread_visiting>0.25</spread_visiting>
@@ -92,13 +95,61 @@
 			<moneyline_maximum>1000</moneyline_maximum>
 			<total_maximum>250</total_maximum>
 			<moneyline>
-				<moneyline_visiting>-152</moneyline_visiting>
+				<moneyline_visiting>110</moneyline_visiting>
+				<!-- <moneyline_visiting>-152</moneyline_visiting> -->
 				<moneyline_home>135</moneyline_home>
 			</moneyline>
 		</period>
 	</periods>
 </event>
-
+<event>
+	<event_datetimeGMT>2013-09-23 12:35</event_datetimeGMT>
+	<gamenumber>324122411</gamenumber>
+	<sporttype>Tennis</sporttype>
+	<league>Thailand R1</league>
+	<IsLive>No</IsLive>
+	<participants>
+		<participant>
+			<participant_name>I. Sijsling</participant_name>
+			<contestantnum>8315</contestantnum>
+			<rotnum>8315</rotnum>
+			<visiting_home_draw>Visiting</visiting_home_draw>
+		</participant>
+		<participant>
+			<participant_name>J. Nieminen</participant_name>
+			<contestantnum>8316</contestantnum>
+			<rotnum>8316</rotnum>
+			<visiting_home_draw>Home</visiting_home_draw>
+		</participant>
+	</participants>
+	<periods>
+		<period>
+			<period_number>0</period_number>
+			<period_description>Match</period_description>
+			<periodcutoff_datetimeGMT>2013-09-23 12:35</periodcutoff_datetimeGMT>
+			<period_status>O</period_status>
+			<period_update>open</period_update>
+			<spread_maximum>2500</spread_maximum>
+			<moneyline_maximum>2500</moneyline_maximum>
+			<total_maximum>1250</total_maximum>
+			<moneyline>
+				<moneyline_visiting>162</moneyline_visiting>
+				<moneyline_home>-184</moneyline_home>
+			</moneyline>
+			<spread>
+				<spread_visiting>2.5</spread_visiting>
+				<spread_adjust_visiting>-101</spread_adjust_visiting>
+				<spread_home>-2.5</spread_home>
+				<spread_adjust_home>-116</spread_adjust_home>
+			</spread>
+			<total>
+				<total_points>22.5</total_points>
+				<over_adjust>-109</over_adjust>
+				<under_adjust>-107</under_adjust>
+			</total>
+		</period>
+	</periods>
+</event>
 
 
 </events>

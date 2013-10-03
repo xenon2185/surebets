@@ -3,7 +3,8 @@ Surebets::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  root 'admin/events#index'
+  # root 'admin/events'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -16,6 +17,8 @@ Surebets::Application.routes.draw do
   namespace :admin do
     root to: "dashboard#index"
     resources :events
+    get 'surebets', to: 'surebets#index', as: 'surebets'
+
     
     require 'sidekiq/web'
     mount Sidekiq::Web => '/sidekiq'

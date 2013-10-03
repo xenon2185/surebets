@@ -1,0 +1,28 @@
+%table.table.table-bordered{style: 'table-layout:fixed'}
+
+  %thead
+    %caption
+      = link_to "#{surebet.event.sport_type}: #{surebet.event.home} - #{surebet.event.visiting} (#{surebet.event.datetime})", admin_event_path(surebet.event)
+    %tr
+      %th= surebet.event.home
+      - if surebet.bet_with_odds_draw_id != nil
+        %th Draw
+      %th= surebet.event.visiting
+      %th Profit
+  %tbody
+    %tr
+      %td
+        - bet_with_odds_home = Bet.find(surebet.bet_with_odds_home_id)
+        = bet_with_odds_home.odds_home
+        = "(#{bet_with_odds_home.bookmaker})"
+      - if surebet.bet_with_odds_draw_id != nil
+        %td
+          - bet_with_odds_draw = Bet.find(surebet.bet_with_odds_draw_id)
+          = bet_with_odds_draw.odds_draw
+          = "(#{bet_with_odds_draw.bookmaker})"
+      %td
+        - bet_with_odds_visiting = Bet.find(surebet.bet_with_odds_visiting_id)
+        = bet_with_odds_visiting.odds_visiting
+        = "(#{bet_with_odds_visiting.bookmaker})"
+      %td= "#{surebet.profit.round 3} %"
+

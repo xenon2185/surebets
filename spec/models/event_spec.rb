@@ -24,10 +24,9 @@ describe Event do
   end
 
   let(:pinnacle_events) { Event.fetch :pinnacle }
+  let(:bet_at_home_events) { Event.fetch :'bet-at-home' }
 
   describe 'refresh events and bets' do
-
-    let(:bet_at_home_events) { Event.fetch :'bet-at-home' }
 
     before :each do
       stub_pinnacle_xml
@@ -36,14 +35,14 @@ describe Event do
 
     it 'populates events ONLY from Pinnacle' do
       Event.refresh pinnacle_events
-      Event.refresh bet_at_home_events
-      expect(Event.all.count).to eq 2
+      # Event.refresh bet_at_home_events
+      expect(Event.all.count).to eq 3
     end 
 
     describe 'Pinnacle' do
 
       it 'fetches events (with bets)' do
-        expect(pinnacle_events.count).to eq 2
+        expect(pinnacle_events.count).to eq 3
       end
 
       it 'populates bets from Pinnacle' do
@@ -57,7 +56,7 @@ describe Event do
     describe 'Bet-at-home' do
 
       it 'fetches events (with bets)' do
-        expect(bet_at_home_events.count).to eq 2
+        expect(bet_at_home_events.count).to eq 3
       end
 
       it 'populates bets from Bet-at-home' do
@@ -78,7 +77,7 @@ describe Event do
     end
 
     it 'searches home field' do
-      expect(Event.find_by_fuzzy_home('goteborg',limit:1).first
+      expect(Event.find_by_fuzzy_home('IFK Göteborg',limit:1).first
         ).not_to eq nil
       expect(Event.find_by_fuzzy_home('sousa',limit:1).first
         ).not_to eq nil
@@ -91,6 +90,36 @@ describe Event do
         ).not_to eq nil
       expect(Event.find_by_fuzzy_visiting('harrisson',limit:1).first
         ).not_to eq nil
+    end
+
+  end
+
+  describe 'surebets' do
+
+    before :each do
+      stub_pinnacle_xml
+      stub_bet_at_home_xml
+      Event.refresh pinnacle_events
+      Event.refresh bet_at_home_events
+    end
+
+    it 'finds 3x surebet' do
+      expect(
+        Event.first.surebets.first.profit
+        ).to eq 2.255639097744361
+      expect(Event.find(1).surebets.count).to eq 1
+    end
+
+    it 'finds 2x surebet' do
+      expect(
+        Event.find(2).surebets.refresh
+        ).to eq 9.827760891590678
+    end
+
+    it 'does not find 2x surebet' do
+      expect(
+        Event.find(3).surebets.count
+        ).to eq 0
     end
 
   end
